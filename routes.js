@@ -182,7 +182,23 @@ function wrapAsync(fn) {
 }
 
 router.use(async function(error, req, res, next) {
-  let ecommerce = await new Ecommerce(req.ecommerceDomain).init()
+  let ecommerce = null
+  try {
+  	ecommerce = await new Ecommerce(req.ecommerceDomain).init()
+  } catch (e) {
+  	res.status(422).render('error', {
+      ecommerce: {
+      	name:'AirSell',
+      	theme:'United'
+      },
+      page: {
+        title: "Ops, there was an error",
+        description: error.message
+      }
+    })
+    return
+  }
+
 
   if (req.headers && req.headers.accept && req.headers.accept.indexOf('application/json') != -1) {
     res.status(422).json({ message: error.message });
