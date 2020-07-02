@@ -133,6 +133,9 @@ class Ecommerce {
 	}
 
 	getProducts() {
+		if (!this.ecommerce.data) {
+			return []
+		}
 		return this.ecommerce.data.Products
 	}
 
