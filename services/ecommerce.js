@@ -32,7 +32,7 @@ class Ecommerce {
 
 
 	getMenus() {
-		if (!this.ecommerce.airtable.fieldsMappings.Products) {
+		if (!this.ecommerce.airtable.fieldsMappings || !this.ecommerce.airtable.fieldsMappings.Products) {
 			return []
 		}
 		let mapping = this.ecommerce.airtable.fieldsMappings.Products.fields.Category
@@ -105,7 +105,7 @@ class Ecommerce {
 		let attributesKeys = [ 'Attribute1','Attribute2','Attribute3', 'Attribute4', 'Attribute5']
 
 		attributesKeys.map(key => {
-			if (!this.ecommerce.airtable.fieldsMappings.Products.fields[key]) {
+			if (!this.ecommerce.airtable.fieldsMappings || !this.ecommerce.airtable.fieldsMappings.Products.fields[key]) {
 				return;
 			}
 			let fieldName = this.ecommerce.airtable.fieldsMappings.Products.fields[key].name
