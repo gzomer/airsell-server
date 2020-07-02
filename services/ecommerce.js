@@ -32,6 +32,9 @@ class Ecommerce {
 
 
 	getMenus() {
+		if (!this.ecommerce.airtable.fieldsMappings.Products) {
+			return []
+		}
 		let mapping = this.ecommerce.airtable.fieldsMappings.Products.fields.Category
 
 		if (!mapping.options || !mapping.options.choices || !mapping.options.choices.length) {
