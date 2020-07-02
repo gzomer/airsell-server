@@ -46,7 +46,7 @@ function goCheckout() {
   stripe = Stripe(STRIPE_KEY);
 
   $.post('/purchase/session',{
-      successURL : 'http://'+window.location.host + '/order/',
+      successURL : window.location.protocol + '//'+window.location.host + '/order/',
       cancelURL : window.location.href,
   }, function(response){
       stripe.redirectToCheckout({
