@@ -15,7 +15,6 @@ class Ecommerce {
 
 	constructor(ecommerceDomain) {
 		this.ecommerceDomain = ecommerceDomain
-		this.ecommerceDomain = 'sell'
 	}
 
 	async init() {
