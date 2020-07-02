@@ -167,7 +167,7 @@ router.post('/purchase/session', wrapAsync(async(req, res, next) => {
 	let productItems = ecommerce.convertBasketToProductItems(req.cookies.basket)
 	let totalPrice = productItems.map(item=>item.totalPrice).reduce((a,b)=> a+b,0)
 
-    new PurchaseService()
+    new PurchaseService(ecommerce.ecommerce.stripe)
     .createSession(req.body, productItems)
     .then(session => res.json({session: session.id}))
     .catch(err => next(err));

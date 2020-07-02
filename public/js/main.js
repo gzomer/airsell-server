@@ -41,8 +41,6 @@ function addToCart(product, quantity, attributes) {
 }
 
 function goCheckout() {
-  var STRIPE_KEY = 'pk_test_ZWhwAIbGPDhTQFH2Cff2S0P3';
-
   stripe = Stripe(STRIPE_KEY);
 
   $.post('/purchase/session',{

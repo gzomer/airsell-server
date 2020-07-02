@@ -268,7 +268,7 @@ class Ecommerce {
 	}
 
 	async verifyPurchaseAndSendOrder(id) {
-		let purchaseService = new PurchaseService()
+		let purchaseService = new PurchaseService(this.ecommerce.stripe)
 		let purchase = await purchaseService.getPurchaseInfo(id)
 
 		if (!purchase || !purchase.intent) {

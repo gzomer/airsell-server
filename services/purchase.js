@@ -1,6 +1,3 @@
-var _STRIPE_KEY = 'sk_test_lpXyLIGuLQhJRCRcV6wJiVeA';
-
-var stripe = require("stripe")(_STRIPE_KEY);
 var fs = require("fs");
 
 var _CACHE = JSON.parse(fs.readFileSync('./data/cachePurchase.json') || '{}')
@@ -11,6 +8,11 @@ var _ORDER_MAP = _CACHE._ORDER_MAP || {}
 var id = _CACHE.id || 1000
 
 class Purchase {
+
+   constructor(keys) {
+     this.stripe = require("stripe")(keys.privateKey);
+   }
+
    charge(token, email, plan) {
 
    	var planMap = {
@@ -21,7 +23,7 @@ class Purchase {
 
    	var price = planMap[plan];
 
-   	return stripe.charges.create({
+   	return this.stripe.charges.create({
    	  amount: price,
    	  currency: 'usd',
    	  description: 'Logo - ' + plan + ' Package ',
@@ -32,10 +34,11 @@ class Purchase {
    async getPurchaseInfo(id){
       let session = await this.getSessionById(id)
 
-      let paymentIntent = await stripe.paymentIntents.retrieve(
+      console.log(session)
+      let paymentIntent = await this.stripe.paymentIntents.retrieve(
         session.payment_intent);
 
-      let customer = await stripe.customers.retrieve(
+      let customer = await this.stripe.customers.retrieve(
         session.customer);
 
       let productItems = this.getBasketForSession(id)
@@ -49,7 +52,7 @@ class Purchase {
    }
 
    saveCache() {
-    fs.writeFileSync('./data/cache.json',JSON.stringify({
+    fs.writeFileSync('./data/cachePurchase.json',JSON.stringify({
       _SESSIONS_MAP: _SESSIONS_MAP,
       _BASKET_MAP: _BASKET_MAP,
       _ORDER_MAP: _ORDER_MAP,
@@ -62,16 +65,8 @@ class Purchase {
    }
 
    getSessionById(id) {
-      return new Promise((resolve, reject) => {
-          var session = _SESSIONS_MAP[id]
-
-          stripe.checkout.sessions.retrieve(
-            session,
-            function(err, session) {
-              resolve(session)
-            }
-          );
-      })
+      var session = _SESSIONS_MAP[id]
+      return this.stripe.checkout.sessions.retrieve(session)
    }
 
    convertPriceToStripFormat(price) {
@@ -91,8 +86,8 @@ class Purchase {
           description.push(key+ ': ' + item.attributes[key])
         }
         return {
-           name: item.product.Name,
-           description: description.join(' '),
+           name: item.product.Name + ' ',
+           description: description.join(' ') + ' ',
            images: images,
            amount: this.convertPriceToStripFormat(item.product.Price),
            currency: 'usd',
@@ -104,7 +99,7 @@ class Purchase {
    async createSession(urls, productItems) {
      _BASKET_MAP[id] = productItems
 
-     const session = await stripe.checkout.sessions.create({
+     const session = await this.stripe.checkout.sessions.create({
        payment_method_types: ['card'],
        line_items: this.convertProductItemsToLineItems(productItems),
        shipping_address_collection:{

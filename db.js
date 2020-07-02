@@ -16,6 +16,7 @@ UserSchema.plugin(passportLocalMongoose);
 const EcommerceSchema = new Schema({
   name: String,
   description: String,
+  stripe: Object,
   logo: String,
   theme: String,
   domain: String,

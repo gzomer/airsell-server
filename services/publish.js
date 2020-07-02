@@ -32,9 +32,11 @@ class Publish {
 		ecommerce.homeTitle = data.homeTitle
 		ecommerce.instagram = data.instagram
 		ecommerce.facebook = data.facebook
+		ecommerce.stripe = data.stripe
 		ecommerce.data = data.data
 
 		ecommerce.markModified('data');
+		ecommerce.markModified('stripe');
 		ecommerce.markModified('fieldsMapping');
 		ecommerce.markModified('airtable');
 
