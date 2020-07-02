@@ -1,0 +1,31 @@
+{
+  "name": "lms",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "airtable": "^0.8.1",
+    "atob": "^2.1.2",
+    "body-parser": "^1.19.0",
+    "connect-ensure-login": "^0.1.1",
+    "connect-redis": "^4.0.4",
+    "cookie-parser": "^1.4.5",
+    "cookie-session": "^1.4.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.9.18",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^6.0.1",
+    "redis": "^3.0.2",
+    "slugify": "^1.4.4",
+    "stripe": "^8.67.0",
+    "swig": "^1.4.2"
+  }
+}
