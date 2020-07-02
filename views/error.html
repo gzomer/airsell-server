@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+    <main role="main">
+
+      {% if breadcrumbs.length > 0 %}
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          {% for breadcrumb in breadcrumbs %}
+            {% if breadcrumb.url %}
+            <li class="breadcrumb-item"><a href="{{breadcrumb.url}}">{{breadcrumb.name}}</a></li>
+            {% else %}
+            <li class="breadcrumb-item active" aria-current="page">{{breadcrumb.name}}</li>
+            {% endif %}
+          {% endfor %}
+        </ol>
+      </nav>
+      {% endif %}
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">{{page.title}}</h1>
+          <p class="lead text-muted" style="margin-top:40px">{{page.description}}</p>
+        </div>
+      </section>
+
+    </main>
+
+{% endblock %}

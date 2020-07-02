@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+    <main role="main">
+
+      {% if breadcrumbs.length > 0 %}
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          {% for breadcrumb in breadcrumbs %}
+            {% if breadcrumb.url %}
+            <li class="breadcrumb-item"><a href="{{breadcrumb.url}}">{{breadcrumb.name}}</a></li>
+            {% else %}
+            <li class="breadcrumb-item active" aria-current="page">{{breadcrumb.name}}</li>
+            {% endif %}
+          {% endfor %}
+        </ol>
+      </nav>
+      {% endif %}
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">{{page.title}}</h1>
+          <p class="lead text-muted">{{page.description | safe}}</p>
+        </div>
+      </section>
+
+      <div class="album py-5 bg-light">
+
+        <div class="container">
+            <div class="row" style="margin-bottom: 50px">
+              <div class="col-10 offset-1">
+                <div class="row">
+                  <div class="col-3 offset-3">
+                    <h4>{{order.customer.name}}</h4>
+                    <p>{{order.customer.email}}</p>
+                  </div>
+                  <div class="col-6">
+                    <h5>Address</h5>
+                    <p>{{order.address.city}}, {{order.address.country}}<br>
+                    {% if order.address.line2 %} {{order.address.line1}}<br>{% endif %}
+                    {% if order.address.line2 %} {{order.address.line2}}<br>{% endif %}
+                    {{order.address.postal_code}}
+                  </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% if items.length == 0 %}
+            <div class="row">
+              <div class="col-10 offset-1">
+                <div class="row center-align large-padding">
+                  <h3>Your cart is empty</h3>
+                </div>
+              </div>
+            </div>
+            {% else %}
+            <div class="row">
+              <div class="col-10 offset-1">
+                <div class="row cart-top">
+                    <div class="col-2">
+
+                    </div>
+                    <div class="col-5">
+
+                    </div>
+                    <div class="col-2 center-align">
+                      <h4>Quantity</h4>
+                    </div>
+                    <div class="col-3 center-align">
+                      <h4>Price</h4>
+                    </div>
+                </div>
+                {% for item in items %}
+                <div class="row cart-row">
+                    <div class="col-2 center-align">
+                      <img class="img-fluid" src="https://cdn.shopify.com/s/files/1/1012/9648/products/Featherstun_Crest_Pendant_4e1b52cd-a6bf-427a-8447-c59063dce38b_medium.png?v=1550414341">
+                    </div>
+                    <div class="col-5">
+                      <h3>{{item.name}}</h3>
+                      {% if item.attributes.length %}
+                      <ul style="list-style: none;">
+                        {% for attr in item.attributes %}
+                        <li>
+                          {{attr.name}}: <b>{{attr.value}}</b>
+                        </li>
+                        {% endfor %}
+                      </ul>
+                      {% endif %}
+                    </div>
+                    <div class="col-2 center-align cart-quantity">
+                      <h4>{{item.quantity}}</h4>
+                    </div>
+                    <div class="col-3 center-align cart-price">
+                      <h4>${{item.totalPrice}}</h4>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="row cart-subtotal">
+                    <div class="col-2">
+
+                    </div>
+                    <div class="col-5">
+
+                    </div>
+                    <div class="col-2 center-align">
+                      <h4>Subtotal</h4>
+                    </div>
+                    <div class="col-3 center-align cart-price">
+                      <h4>${{totalPrice}}</h4>
+                    </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+        </div>
+      </div>
+
+    </main>
+
+{% endblock %}

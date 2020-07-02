@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+    <main role="main">
+
+      {% if breadcrumbs.length > 0 %}
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          {% for breadcrumb in breadcrumbs %}
+            {% if breadcrumb.url %}
+            <li class="breadcrumb-item"><a href="{{breadcrumb.url}}">{{breadcrumb.name}}</a></li>
+            {% else %}
+            <li class="breadcrumb-item active" aria-current="page">{{breadcrumb.name}}</li>
+            {% endif %}
+          {% endfor %}
+        </ol>
+      </nav>
+      {% endif %}
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">{{page.title}}</h1>
+          <p class="lead text-muted">{{page.description}}</p>
+        </div>
+      </section>
+
+      <div class="pagelist py-5 bg-light">
+        <div class="container">
+
+          <div class="row">
+            {% for item in items %}
+            <div class="col-md-4">
+              <div class="card mb-4 box-shadow">
+                {% if item.image %}
+                <img class="card-img-top" src="{{item.image}}">
+                {% endif %}
+                <div class="card-body">
+                  <h3>{{item.name}}</h3>
+                  <p class="card-text">{{item.description}}</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a href="{{item.url}}" type="button" class="btn btn-sm btn-primary">View</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          <div class="row">
+            <div class="col large-padding" style="text-align: center">
+              {% if !items.length %}
+                <h4>No products found.</h4>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+{% endblock %}

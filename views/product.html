@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block content %}
+
+    <main role="main">
+
+      {% if breadcrumbs.length > 0 %}
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          {% for breadcrumb in breadcrumbs %}
+            {% if breadcrumb.url %}
+            <li class="breadcrumb-item"><a href="{{breadcrumb.url}}">{{breadcrumb.name}}</a></li>
+            {% else %}
+            <li class="breadcrumb-item active" aria-current="page">{{breadcrumb.name}}</li>
+            {% endif %}
+          {% endfor %}
+        </ol>
+      </nav>
+      {% endif %}
+      <div class="py-5">
+        <div class="container">
+          <div class="row">
+            <div class="col-6 img-container">
+              {% for image in product.Images %}
+              <img class="img-fluid" src="{{image.url}}" style="width:100%"/>
+              {% endfor %}
+            </div>
+            <div class="col-5 offset-1">
+                <h1 class="jumbotron-heading">{{page.title}}</h1>
+                <p class="lead text-muted">{{page.description}}</p>
+
+                <div class="attributes-wrapper">
+                  <input type="hidden" class="product-id" value="{{product.ID}}"/>
+                  {% for attribute in product.attributes %}
+                  <div class="row">
+                    <div class="col-9 offset-1">
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">{{attribute.name}}</label>
+                        <div class="col-sm-8">
+                          <select class="form-control product-attributes" name="{{attribute.name}}">
+                            {% for option in attribute.values %}
+                            <option value="{{option}}">{{option}}</option>
+                            {% endfor %}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {% endfor %}
+                  <div class="row">
+                    <div class="col-9 offset-1">
+                      <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Quantity</label>
+                        <div class="col-sm-8">
+                          <select class="form-control product-quantity" name="quantity">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <button id="addToCart" class="btn btn-primary btn-lg btn-block">Add to Cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+{% endblock %}

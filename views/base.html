@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ ecommerce.name }}</title>
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootswatch/4.5.0/{{ecommerce.theme.toLowerCase()}}/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  </head>
+  <body>
+
+    <header>
+      <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8 col-md-7 py-4">
+              <h4 class="text-white">About</h4>
+              <p class="text-muted">{{ ecommerce.description }}</p>
+            </div>
+            <div class="col-sm-4 offset-md-1 py-4">
+              {% if ecommerce.instagram || ecommerce.facebook %}
+              <h4 class="text-white">Contact</h4>
+              <ul class="list-unstyled">
+                {% if ecommerce.instagram %}
+                <li><a href="{{ecommerce.instagram}}" target="_blank" class="text-white">Follow on Instagram</a></li>
+                {% endif %}
+                {% if ecommerce.facebook %}
+                  <li><a href="{{ecommerce.facebook}}" target="_blank"  class="text-white">Like on Facebook</a></li>
+                {% endif %}
+              </ul>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar navbar-dark bg-dark box-shadow">
+        <div class="container d-flex justify-content-around">
+          <a href="/" class="navbar-brand d-flex align-items-center" >
+            <strong>{{ ecommerce.name }}</strong>
+          </a>
+          <nav class="nav d-flex justify-content-between">
+            {% for menu in ecommerce.menus %}
+              <a class="p-2 text-muted" href="{{menu.link}}">{{menu.name}}</a>
+            {% endfor %}
+          </nav>
+          <nav>
+            <a href="/cart" class="cart-icon">
+              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </nav>
+        </div>
+      </div>
+    </header>
+    {% block content %}
+    {% endblock %}
+
+    <footer class="text-muted">
+      <div class="container">
+        <h3>{{ ecommerce.name }}</h3>
+        <p>{{ ecommerce.description }}</p>
+      </div>
+    </footer>
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js" integrity="sha256-sfG8c9ILUB8EXQ5muswfjZsKICbRIJUG/kBogvvV5sY=" crossorigin="anonymous"></script>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script type="text/javascript" src="/js/main.js"></script>
+  </body>
+</html>
