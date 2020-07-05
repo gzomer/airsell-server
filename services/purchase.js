@@ -69,8 +69,8 @@ class Purchase {
       return this.stripe.checkout.sessions.retrieve(session)
    }
 
-   convertPriceToStripFormat(price) {
-      return parseFloat(price.toFixed(2))*100
+   convertPriceToStripeFormat(price) {
+      return parseInt(price*100)
    }
 
    convertProductItemsToLineItems(productItems) {
@@ -89,7 +89,7 @@ class Purchase {
            name: item.product.Name + ' ',
            description: description.join(' ') + ' ',
            images: images,
-           amount: this.convertPriceToStripFormat(item.product.Price),
+           amount: this.convertPriceToStripeFormat(item.product.Price),
            currency: 'usd',
            quantity: item.quantity
         }
