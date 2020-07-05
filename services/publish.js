@@ -18,7 +18,7 @@ class Publish {
 				apiKey: data.apiKey
 			})
 
-			if (existingDomain && existingDomain.id != ecommerce.id) {
+			if (existingDomain && ecommerce && existingDomain.id != ecommerce.id) {
 				return {
 					success: false,
 					message: 'This domain is already in use.'
