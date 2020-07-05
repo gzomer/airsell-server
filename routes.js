@@ -108,7 +108,7 @@ router.get('/cart',
 			items: productItems.map(item=>{
 				return {
 					url : '/products/' + item.product.Slug,
-					imageUrl: item.product.Images && item.product.Images.length? item.product.Images[0].url:null,
+					imageURL: item.product.Images && item.product.Images.length > 0 ? item.product.Images[0].url:null,
 					name: item.product.Name,
 					quantity: item.quantity,
 					attributes: Object.keys(item.attributes).map(function(key) {
@@ -150,7 +150,7 @@ router.get('/order/:id', wrapAsync(async(req, res, next) => {
 			return {
 				url : '/products/' + item.product.Slug,
 				name: item.product.Name,
-				imageUrl: item.product.Images && item.product.Images.length? item.product.Images[0].url:null,
+				imageURL: item.product.Images && item.product.Images.length > 0 ? item.product.Images[0].url:null,
 				quantity: item.quantity,
 				attributes: Object.keys(item.attributes).map(function(key) {
 					  return {name:key, value:item.attributes[key]};
