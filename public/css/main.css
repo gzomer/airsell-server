@@ -18,6 +18,9 @@
     max-width: 40rem;
 }
 
+.breadcrumb {
+	margin-bottom: 0px;
+}
 .video-wrapper {
 	text-align: center;
 }

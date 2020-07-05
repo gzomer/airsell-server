@@ -9,15 +9,35 @@ class Publish {
 		let hasCreated = false
 		let ecommerce = null;
 
+		let existingDomain =  await DB.models.Ecommerce.findOne({
+			domain: data.domain
+		})
+
 		if (typeof data.apiKey != 'undefined' && data.apiKey != null && data.apiKey != '') {
 			ecommerce = await DB.models.Ecommerce.findOne({
 				apiKey: data.apiKey
 			})
 
+			if (existingDomain && existingDomain.id != school.id) {
+				return {
+					success: false,
+					message: 'This domain is already in use.'
+				}
+			}
+
 			if (ecommerce == null) {
-				throw new Error('Invalid ecommerce')
+				return {
+					success: false,
+					message: 'Invalid ecommerce'
+				}
 			}
 		} else {
+			if (existingDomain) {
+				return {
+					success: false,
+					message: 'This domain is already in use.'
+				}
+			}
 			hasCreated = true
 			ecommerce = await this.createEmptyEcommerce()
 		}
